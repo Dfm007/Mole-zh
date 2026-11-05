@@ -5,7 +5,7 @@
 
 set -euo pipefail
 
-MOLE_REPOSITORY="${MOLE_REPOSITORY:-GeekAudio/Mole}"
+MOLE_REPOSITORY="${MOLE_REPOSITORY:-Dfm007/Mole-zh}"
 INSTALL_SOURCE_REF=""
 
 # The installed entrypoint refuses to run as root, so a root install would

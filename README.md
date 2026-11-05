@@ -1,4 +1,4 @@
-# Mole 中文版
+# Mole 汉化版
 
 Mole 是 macOS 命令行维护工具，可清理缓存与应用残留、卸载应用、整理系统服务、分析磁盘空间，并实时查看系统状态。本仓库在上游项目基础上提供简体中文界面。
 
@@ -16,7 +16,7 @@ Mole 是 macOS 命令行维护工具，可清理缓存与应用残留、卸载�
 需要 macOS 12 或更高版本，支持 Intel 和 Apple 芯片。
 
 ```bash
-curl -fsSL https://raw.githubusercontent.com/GeekAudio/Mole/main/install.sh | bash -s -- --prefix "$HOME/.local/bin"
+curl -fsSL https://raw.githubusercontent.com/Dfm007/Mole-zh/main/install.sh | bash -s -- --prefix "$HOME/.local/bin"
 ```
 
 确保 `~/.local/bin` 已加入 `PATH`。安装完成后运行 `mo` 打开菜单。
