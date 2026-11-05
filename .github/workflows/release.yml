@@ -40,7 +40,7 @@ jobs:
         run: |
           SOURCE_VERSION=$(sed -n 's/^VERSION="\([^"]*\)"$/\1/p' mole)
           EXPECTED_TAG="V${SOURCE_VERSION}"
-          if [[ -z "$SOURCE_VERSION" || ( "$RELEASE_TAG" != "$EXPECTED_TAG" && ! "$RELEASE_TAG" =~ ^${EXPECTED_TAG}-zh\.[0-9]+$ ) ]]; then
+          if [[ -z "$SOURCE_VERSION" || ( "$RELEASE_TAG" != "$EXPECTED_TAG" && "$RELEASE_TAG" != "${EXPECTED_TAG}-zh" ) ]]; then
             echo "Release tag ${RELEASE_TAG} does not match source ${EXPECTED_TAG}" >&2
             exit 1
           fi
