@@ -591,7 +591,7 @@ get_latest_version() {
         *) return 0 ;;
     esac
     version="${version#[Vv]}"
-    [[ "$version" =~ ^[0-9]+\.[0-9]+\.[0-9]+(-zh\.[0-9]+)?$ ]] && printf '%s\n' "$version"
+    [[ "$version" =~ ^[0-9]+\.[0-9]+\.[0-9]+(-zh)?$ ]] && printf '%s\n' "$version"
     return 0
 }
 
@@ -601,7 +601,7 @@ get_latest_version_from_github() {
         "https://api.github.com/repos/Dfm007/Mole-zh/releases/latest" 2> /dev/null |
         /usr/bin/plutil -extract tag_name raw -o - - 2> /dev/null || true)
     version="${version#[Vv]}"
-    [[ "$version" =~ ^[0-9]+\.[0-9]+\.[0-9]+(-zh\.[0-9]+)?$ ]] && printf '%s\n' "$version"
+    [[ "$version" =~ ^[0-9]+\.[0-9]+\.[0-9]+(-zh)?$ ]] && printf '%s\n' "$version"
     return 0
 }
 
@@ -650,12 +650,12 @@ get_latest_version_from_git() {
         2> /dev/null); then
         tag=$(printf '%s\n' "$response" |
             awk -F/ '{print $NF}' |
-            grep -E '^V[0-9]+\.[0-9]+\.[0-9]+(-zh\.[0-9]+)?$' |
+            grep -E '^V[0-9]+\.[0-9]+\.[0-9]+(-zh)?$' |
             sort -V |
             tail -n 1)
         version="${tag#[Vv]}"
     fi
-    [[ "$version" =~ ^[0-9]+\.[0-9]+\.[0-9]+(-zh\.[0-9]+)?$ ]] && printf '%s\n' "$version"
+    [[ "$version" =~ ^[0-9]+\.[0-9]+\.[0-9]+(-zh)?$ ]] && printf '%s\n' "$version"
     return 0
 }
 
@@ -1346,7 +1346,7 @@ update_mole() (
             echo -e "${ICON_REVIEW} Try again with: ${GRAY}mo update${NC}"
             exit 1
         fi
-        if [[ ! "$latest" =~ ^[Vv]?[0-9]+(\.[0-9]+)*(-zh\.[0-9]+)?$ ]]; then
+        if [[ ! "$latest" =~ ^[Vv]?[0-9]+(\.[0-9]+)*(-zh)?$ ]]; then
             log_error "Invalid version response: $latest"
             echo -e "${ICON_REVIEW} Try again later or use: ${GRAY}mo update --nightly${NC}"
             exit 1

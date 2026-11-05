@@ -845,7 +845,7 @@ get_latest_release_tag() {
     tag=$(curl -fsSL --connect-timeout 2 --max-time 3 \
         "https://api.github.com/repos/${MOLE_REPOSITORY}/releases/latest" 2> /dev/null |
         sed -n 's/.*"tag_name":[[:space:]]*"\([^"]*\)".*/\1/p' | head -n1)
-    if [[ -z "$tag" || ! "$tag" =~ ^V[0-9]+\.[0-9]+\.[0-9]+(-zh\.[0-9]+)?$ ]]; then
+    if [[ -z "$tag" || ! "$tag" =~ ^V[0-9]+\.[0-9]+\.[0-9]+(-zh)?$ ]]; then
         return 1
     fi
     printf '%s\n' "$tag"
@@ -876,7 +876,7 @@ get_latest_release_tag_from_git() {
     git -c http.lowSpeedLimit=1000 -c http.lowSpeedTime=10 \
         ls-remote --tags --refs "https://github.com/${MOLE_REPOSITORY}.git" 2> /dev/null |
         awk -F/ '{print $NF}' |
-        grep -E '^V[0-9]+\.[0-9]+\.[0-9]+(-zh\.[0-9]+)?$' |
+        grep -E '^V[0-9]+\.[0-9]+\.[0-9]+(-zh)?$' |
         sort -V |
         tail -n 1
 }
@@ -1080,7 +1080,7 @@ write_install_channel_metadata() {
     if [[ -n "$install_receipt" && ! "$install_receipt" =~ ^(heal|update)-[0-9]+-[0-9]+-[0-9]+$ ]]; then
         return 1
     fi
-    if [[ -n "$release_tag" && ! "$release_tag" =~ ^[Vv]?[0-9]+\.[0-9]+\.[0-9]+(-zh\.[0-9]+)?$ ]]; then
+    if [[ -n "$release_tag" && ! "$release_tag" =~ ^[Vv]?[0-9]+\.[0-9]+\.[0-9]+(-zh)?$ ]]; then
         release_tag=""
     fi
 
@@ -1385,7 +1385,7 @@ download_binary() {
     fi
 
     local version
-    if [[ "${INSTALL_SOURCE_REF:-}" =~ ^[Vv]?[0-9]+\.[0-9]+\.[0-9]+-zh\.[0-9]+$ ]]; then
+    if [[ "${INSTALL_SOURCE_REF:-}" =~ ^[Vv]?[0-9]+\.[0-9]+\.[0-9]+-zh$ ]]; then
         version="$INSTALL_SOURCE_REF"
     else
         version=$(get_source_version)
